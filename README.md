@@ -1,5 +1,5 @@
 📊 SpendWise – Smart Expense Tracker <br><br>
-SpendWise is a modern, personal finance tracking web app built using pure HTML, CSS, and JavaScript. It helps users manage their income, set budgets, log expenses , and maintain financial control — all in a lightweight and responsive interface.<br><br>
+SpendWise is a modern, personal finance tracking web app built using pure HTML, CSS, and JavaScript. It helps users manage their income, set budgets, log expenses , and maintain financial control - all in a lightweight and responsive interface.<br><br>
 
 ✨ Features<br><br>
 ✅ Track Daily Expenses – Add and categorize your spending in real-time.
