@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpendWise - Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">SpendWise</a>
+            <ul class="nav-links">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="history.html">Expense History</a></li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="container">
+            <h1>Dashboard</h1>
+
+            <div class="financial-summary">
+                <div class="summary-card">
+                    <h3>Total Income</h3>
+                    <p id="incomeDisplay">₹0.00</p>
+                </div>
+                <div class="summary-card">
+                    <h3>Budget Limit</h3>
+                    <p id="budgetDisplay">₹0.00</p>
+                </div>
+                <div class="summary-card">
+                    <h3>Total Expenses</h3>
+                    <p id="totalExpensesDisplay" class="negative">₹0.00</p>
+                </div>
+                <div class="summary-card">
+                    <h3>Remaining</h3>
+                    <p id="savingsDisplay" class="neutral">₹0.00</p>
+                </div>
+            </div>
+            
+            <div class="alert-message" id="budgetAlert" style="display: none;">Budget limit exceeded!</div>
+            <div class="alert-message" id="incomeAlert" style="display: none;">Expenses exceed your income!</div>
+
+            <div class="dashboard-grid">
+                <div class="card">
+    <h2 class="card-header">Manage Finances</h2>
+    <div class="form-group">
+        <label for="income">Update Income</label>
+        <input type="number" id="income" placeholder="Enter Income" step="100" min="0">
+    </div>
+    <!-- ADDED ID and REMOVED onclick -->
+    <button id="updateIncomeBtn" class="btn btn-primary">Update Income</button>
+
+    <div class="form-group" style="margin-top: 20px;">
+        <label for="budgetLimit">Set Budget Limit</label>
+        <input type="number" id="budgetLimit" placeholder="Set Budget Limit" step="100" min="0">
+    </div>
+    <!-- ADDED ID and REMOVED onclick -->
+    <button id="updateBudgetBtn" class="btn btn-primary">Set Budget</button>
+                </div>
+
+                <div class="card">
+                    <h2 class="card-header">Add New Expense</h2>
+                    <form id="addExpenseForm">
+                        <div class="form-group">
+                            <label for="expenseName">Expense Name</label>
+                            <input type="text" id="expenseName" placeholder="e.g., Groceries, Coffee" required>
+                            <div class="form-error-message" id="expenseNameError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="expenseCategory">Category</label>
+                            <select id="expenseCategory" required>
+                                <option value="" disabled selected>Choose Category</option>
+                                <option value="Food">Food</option>
+                                <option value="Transport">Transport</option>
+                                <option value="Utilities">Utilities</option>
+                                <option value="Entertainment">Entertainment</option>
+                                <option value="Shopping">Shopping</option>
+                                <option value="Healthcare">Healthcare</option>
+                                <option value="Education">Education</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <div class="form-error-message" id="expenseCategoryError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="expenseAmount">Amount (₹)</label>
+                            <input type="number" id="expenseAmount" placeholder="e.g., 150"  required>
+                             <div class="form-error-message" id="expenseAmountError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="expenseDate">Date</label>
+                            <input type="date" id="expenseDate" required>
+                            <div class="form-error-message" id="expenseDateError"></div>
+                        </div>
+                        <button type="submit" class="btn btn-success btn-block">Add Expense</button>
+                    </form>
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
+    
+    <div id="toast-container"></div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            App.init();
+            App.Profile.init();
+            App.setActiveNavLink();
+        });
+    </script>
+</body>
+</html>

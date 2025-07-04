@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpendWise - Smart Personal Finance</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">SpendWise</a>
+            <ul class="nav-links">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="history.html">Expense History</a></li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="home-hero-section">
+            <div class="container">
+                <h1>Welcome to SpendWise</h1>
+                <p>Your personal finance companion to track expenses, manage budgets, and achieve your financial goals. Take control of your money today!</p>
+                <a href="dashboard.html" class="btn btn-primary">Get Started</a>
+                <a href="profile.html" class="btn btn-primary">Create Profile</a>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="home-features-grid">
+                <div class="home-feature-box">
+                    <div class="icon">📊</div>
+                    <h3>Track Expenses</h3>
+                    <p>Easily log and categorize your spending to see where your money goes.</p>
+                </div>
+                <div class="home-feature-box">
+                    <div class="icon">💰</div>
+                    <h3>Set Budgets</h3>
+                    <p>Create budgets for different categories and stay on top of your financial limits.</p>
+                </div>
+                <div class="home-feature-box">
+                    <div class="icon">📜</div>
+                    <h3>View History</h3>
+                    <p>Review your expense history with powerful filtering and sorting options.</p>
+                </div>
+                <div class="home-feature-box">
+                    <div class="icon">📅</div>
+                    <h3>Log Past Expenses</h3>
+                    <p>Forgot to enter something? Use the date selector to log older expenses anytime.</p>
+                </div>
+                <div class="home-feature-box">
+                    <div class="icon">👤</div>
+                    <h3>Manage Profile</h3>
+                    <p>Personalize your experience and manage your application data securely.</p>
+                </div>
+                <div class="home-feature-box">
+                    <div class="icon">🔄</div>
+                    <h3>Backup & Restore</h3>
+                    <p>Export or import your data in a single click for peace of mind.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="toast-container"></div>
+    <!-- Scripts -->
+    <script src="js/storage.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            App.init(); 
+            App.setActiveNavLink();
+        });
+    </script>
+</body>
+</html>

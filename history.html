@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpendWise - Expense History</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">SpendWise</a>
+            <ul class="nav-links">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="history.html">Expense History</a></li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="container">
+            <h1>Expense History</h1>
+
+            <div class="financial-summary">
+                 <div class="summary-card">
+                    <h3>Total Income</h3>
+                    <p id="incomeDisplay">₹0.00</p>
+                </div>
+                <div class="summary-card">
+                    <h3>Budget Limit</h3>
+                    <p id="budgetDisplay">₹0.00</p>
+                </div>
+                <div class="summary-card">
+                    <h3>Total Expenses</h3>
+                    <p id="totalExpensesDisplay" class="negative">₹0.00</p>
+                </div>
+                <div class="summary-card">
+                    <h3>Remaining/Savings</h3>
+                    <p id="savingsDisplay" class="neutral">₹0.00</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-header">Filter Expenses</h2>
+                <div class="filters-container">
+                    <div class="form-group">
+                        <label for="categoryFilter">Category</label>
+                        <select id="categoryFilter">
+                            <option value="">All Categories</option>
+                            <option value="Food">Food</option>
+                            <option value="Transport">Transport</option>
+                            <option value="Utilities">Utilities</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Shopping">Shopping</option>
+                            <option value="Healthcare">Healthcare</option>
+                            <option value="Education">Education</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="startDate">Start Date</label>
+                        <input type="date" id="startDate">
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">End Date</label>
+                        <input type="date" id="endDate">
+                    </div>
+                    <button class="btn btn-secondary" onclick="App.History.applyFilters()">Filter</button>
+                    <button class="btn btn-outline-primary" onclick="App.History.resetFilters()">Reset Filters</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="card-header">Expenses List</h2>
+                <table id="expenseTable">
+                    <thead>
+                        <tr>
+                            <th data-sort="date">Date <span class="sort-arrow"></span></th>
+                            <th data-sort="name">Name <span class="sort-arrow"></span></th>
+                            <th data-sort="category">Category <span class="sort-arrow"></span></th>
+                            <th data-sort="amount">Amount (₹) <span class="sort-arrow"></span></th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="expenseList">
+                        <!-- Expense rows will be populated by JavaScript -->
+                    </tbody>
+                </table>
+                <div id="noExpensesMessage" class="no-data-message" style="display: none;">
+                    No expenses found. Add some from the dashboard or adjust your filters!
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Editing Expense -->
+    <div id="editExpenseModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Edit Expense</h2>
+                <button class="close-button" onclick="UI.closeModal('editExpenseModal')">×</button>
+            </div>
+            <form id="editExpenseForm">
+                <input type="hidden" id="editExpenseId">
+                <div class="form-group">
+                    <label for="editExpenseName">Expense Name</label>
+                    <input type="text" id="editExpenseName" required>
+                </div>
+                <div class="form-group">
+                    <label for="editExpenseCategory">Category</label>
+                    <select id="editExpenseCategory" required>
+                        <option value="Food">Food</option>
+                        <option value="Transport">Transport</option>
+                        <option value="Utilities">Utilities</option>
+                        <option value="Entertainment">Entertainment</option>
+                        <option value="Shopping">Shopping</option>
+                        <option value="Healthcare">Healthcare</option>
+                        <option value="Education">Education</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="editExpenseAmount">Amount (₹)</label>
+                    <input type="number" id="editExpenseAmount" required>
+                </div>
+                <div class="form-group">
+                    <label for="editExpenseDate">Date</label>
+                    <input type="date" id="editExpenseDate" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+        </div>
+    </div>
+    
+    <div id="toast-container"></div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            App.init();
+            App.History.init();
+            App.setActiveNavLink();
+        });
+    </script>
+</body>
+</html>

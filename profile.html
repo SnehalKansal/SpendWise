@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SpendWise - User Profile & Settings</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">SpendWise</a>
+            <ul class="nav-links">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="history.html">Expense History</a></li>
+                <li><a href="profile.html">Profile</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="container">
+            <h1>User Profile</h1>
+
+            <div class="profile-grid">
+                <div class="card">
+                    <h2 class="card-header">Personal Information</h2>
+                    <form id="userProfileForm">
+                        <div class="profile-picture-section">
+                            <img src="assets/default-avatar.png" alt="Profile Preview" id="profilePicturePreview" class="profile-picture-preview">
+                            <input type="file" id="profilePicture" name="profilePicture" accept="image/*" onchange="App.Profile.previewProfileImage(event)">
+                            <label for="profilePicture" id="profilePictureLabel" class="btn btn-secondary btn-sm">Change Picture</label>
+                            <div class="form-error-message" id="profilePictureError"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" id="fullName" name="fullName" placeholder="e.g., John Doe">
+                            <div class="form-error-message" id="fullNameError"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" placeholder="e.g., john.doe@example.com">
+                            <div class="form-error-message" id="emailError"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phoneNumber">Phone Number (Optional)</label>
+                            <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="e.g., 9876543210">
+                            <div class="form-error-message" id="phoneNumberError"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="dateOfBirth">Date of Birth (Optional)</label>
+                            <input type="date" id="dateOfBirth" name="dateOfBirth">
+                            <div class="form-error-message" id="dateOfBirthError"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="gender">Gender (Optional)</label>
+                            <select id="gender" name="gender">
+                                <option value="">Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                                <option value="prefer-not-to-say">Prefer Not to Say</option>
+                            </select>
+                            <div class="form-error-message" id="genderError"></div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Save Profile</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h2 class="card-header">Data Management</h2>
+                    <p>Manage your application data. Be careful with these actions.</p>
+                    <div class="data-management-buttons">
+                        <button class="btn btn-warning" onclick="App.Profile.backupData()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16" style="margin-right: 5px; vertical-align: text-bottom;">
+                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/>
+                            </svg>
+                            Backup Data (JSON)
+                        </button>
+                        <input type="file" id="restoreFile" accept=".json" style="display: none;" onchange="App.Profile.handleRestoreFile(event)">
+                        <button class="btn btn-info" onclick="document.getElementById('restoreFile').click()">
+                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-upload" viewBox="0 0 16 16" style="margin-right: 5px; vertical-align: text-bottom;">
+                                <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/>
+                                <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708l3-3z"/>
+                            </svg>
+                            Restore Data (JSON)
+                        </button>
+                    </div>
+                     <div class="data-management-buttons" style="margin-top: 20px;">
+                        <button class="btn btn-danger" onclick="App.Profile.resetAllData()">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16" style="margin-right: 5px; vertical-align: text-bottom;">
+                                <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
+                            </svg>
+                            Reset All Application Data
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast-container"></div>
+
+    <script src="js/storage.js"></script>
+    <script src="js/utils.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            App.init();
+            App.History.init();
+            App.setActiveNavLink();
+        });
+    </script>
+</body>
+</html>
