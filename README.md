@@ -1,64 +1,67 @@
-## SpendWise Monorepo
 
-This repo now contains:
+# SpendWise: A Financial Tracking Application
 
-- `server/`: FastAPI backend with MySQL and SQLAlchemy
-- `client/`: React (Vite) frontend
-- `assets/`, `css/`, `js/`, and legacy `.html` remain for reference during migration
+SpendWise is a full-stack financial tracking application. This project uses a **monorepo structure**, with the front end and back end housed in separate folders. The application is containerized using Docker and Docker Compose, making it easy to set up and run.
 
-### Backend (FastAPI)
+## Getting Started
 
-Prereqs: Python 3.10+, MySQL running with a database created (e.g., `spendwise`).
+These instructions will get you a copy of the project up and running on your local machine.
 
-1) Configure environment variables (or create `server/.env`):
+### Prerequisites
 
-```
-MYSQL_USER=your_user
-MYSQL_PASSWORD=your_password
-MYSQL_HOST=127.0.0.1
-MYSQL_PORT=3306
-MYSQL_DB=spendwise
-```
+You need to have **Docker** and **Docker Compose** installed on your system.
 
-2) Create venv and install dependencies:
+* **Docker:** Follow the official Docker installation guide for your operating system.
+* **Docker Compose:** It's usually included with Docker Desktop. If not, you can install it separately.
 
-```
-cd server
-python -m venv .venv
-.venv/Scripts/activate  # Windows PowerShell: .venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-```
+### Installation
 
-3) Start API (port 8000):
+1.  **Clone the repository:**
+    ```sh
+    git clone [repository-url]
+    cd spendwise
+    ```
 
-```
-uvicorn server.main:app --reload --host 0.0.0.0 --port 8000
-```
+2.  **Start the application:**
+    From the root directory of the project, run the following command to build and start all services defined in the `docker-compose.yml` file.
 
-Open Swagger UI: http://localhost:8000/docs
+    ```sh
+    docker-compose up --build
+    ```
 
-### Frontend (React + Vite)
+    * `--build`: This flag ensures that Docker builds the images for the `server` and `client` services before starting the containers.
 
-Prereqs: Node 18+ and npm.
+## Application Architecture
 
-1) Create the app (already scaffolded if `client/` exists):
+The application is composed of three main services, all managed by Docker Compose:
 
-```
-cd client
-npm install
-npm run dev
-```
+* **`db` (Database):** A **MySQL 8.0** database container.
+    * **Container Name:** `spendwise_db`
+    * **Port:** Mapped to `3306` on the host machine.
 
-The app expects the API at `http://localhost:8000`. Adjust `VITE_API_URL` in `client/.env` if needed.
+* **`server` (Backend API):** A Python-based backend service.
+    * **Container Name:** `spendwise_api`
+    * **Port:** Mapped to `8000` on the host machine.
+    * **Configuration:** Connects to the database using environment variables.
 
-### Data Model mapping
+* **`client` (Frontend):** A web-based frontend service.
+    * **Container Name:** `spendwise_client`
+    * **Port:** Mapped to `5173` on the host machine.
+    * **Dependency:** This service depends on the `server` service.
+    * **Configuration:** Communicates with the backend API using the `VITE_API_URL` environment variable.
 
-- Expenses: id (string), name, category, amount, date (ISO)
-- Settings: income, budget (single row)
-- Profile: full_name, email, phone_number, date_of_birth, gender, profile_picture (base64)
+## Accessing the Application
 
-### Migration status
+Once all services are up and running, you can access the frontend application in your web browser at:
 
-- Legacy pages (`dashboard.html`, `history.html`, `profile.html`) are being migrated into React routes.
-- CSS will be ported progressively into the React app.
+http://localhost:5173
 
+
+The backend API will be running at `http://localhost:8000`.
+
+## Stopping the Application
+
+To stop the running containers, press `Ctrl+C` in your terminal. To stop and remove the containers, networks, and volumes, run:
+
+```sh
+docker-compose down -v
